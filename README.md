@@ -1,3 +1,63 @@
+# AI 做 PPT 大师（PPT Master）
+
+> 篝火出品 · 收录于篝火 App 应用区。本仓库 fork 自 [hugohe3/ppt-master](https://github.com/hugohe3/ppt-master)，版权归原作者，按 MIT 许可证分发。
+
+把 PDF、Word、网页或一段文字交给 AI，生成一份真正能在 PowerPoint 里继续编辑的 .pptx（原生形状、图表、表格，不是一张张图片）。
+
+## 能做什么
+
+- 从 PDF、DOCX、图片等资料，或直接粘贴的文字，生成可编辑的 PowerPoint 演示文稿。
+- 导出的是 PowerPoint 原生对象：母版、形状、连接线，以及可选的数据驱动图表和表格。
+- 从你提供的参考资料里提炼可复用的品牌、风格、版式、整套模板；也能在保留原设计的前提下，把新内容填进已有的 .pptx。
+- 增强已有 .pptx：可加讲解旁白、动画等（见上游文档）。
+- 配图可用 AI 生成，或联网搜图（免密钥可用 Openverse / 维基共享资源，配置 Pexels / Pixabay 免费密钥后效果更好）。
+- 免费开源，除你主动启用的大模型、搜图、语音服务外，流程在本机运行。
+
+## 怎么安装（Claude Code）
+
+压缩包 `ppt-master-campfire.zip` 解压后的结构：
+
+```
+skills/
+  ppt-master/   （内含 SKILL.md、scripts、references、templates、workflows、requirements.txt）
+README.md
+LICENSE
+```
+
+1. 到本仓库 [Releases](https://github.com/campfire-code/ppt-master/releases/latest) 下载 `ppt-master-campfire.zip` 并解压。
+2. 把 `skills/ppt-master` 整个文件夹复制到 `~/.claude/skills/`（没有就新建）。
+   - macOS / Linux：`mkdir -p ~/.claude/skills && cp -R skills/ppt-master ~/.claude/skills/`
+   - Windows：复制到 `C:\Users\你的用户名\.claude\skills\`
+3. 安装 Python 依赖：`pip install -r ~/.claude/skills/ppt-master/requirements.txt`（Windows 请把路径换成实际位置，或先 `cd` 进该目录再 `pip install -r requirements.txt`）。
+4. 确认 `~/.claude/skills/ppt-master/SKILL.md` 存在，重启 Claude Code。
+
+上游推荐的另一种用法是把整个项目克隆下来，在该文件夹里打开 AI 工具：`git clone https://github.com/hugohe3/ppt-master.git`，再 `pip install -r requirements.txt`。也可以用插件命令（Claude Code 内运行）：`/plugin marketplace add hugohe3/ppt-master`，再 `/plugin install ppt-master@ppt-master`。Windows 用户请先读上游的 Windows 安装指南 `docs/windows-installation.md`。
+
+## 怎么用
+
+装好后直接对 AI 说需求，它会先和你确认设计规格（模板、页数、比例等），再生成。示例说法：
+
+- “请根据这份 PDF 做一份 PPT：（文件路径）”
+- “把下面这段内容做成 PPT：（粘贴内容）”
+- “快速生成 5 页，不用跟我确认”
+- “用这份 pptx 作模板，把新内容填进去”
+
+生成的 .pptx 在 `exports/` 目录下（上游说明）。上游提醒：这是工具，不是许愿池，模型能力决定上限，生成后仍需要你做一些打磨。
+
+## 前置条件
+
+- Python 3.10 或更新版本，并安装 `requirements.txt` 里的依赖。
+- 一个能读写文件、执行命令的 AI 工具（如 Claude Code），以及它所需的大模型账号。上游推荐使用大上下文（约 100 万 token）的模型。
+- 可选：AI 生图的接口密钥、Pexels / Pixabay 密钥，配置方法见技能目录里的 `.env.example`。旧格式文档（.doc、.rtf 等）才需要另装 pandoc。
+
+## 和上游的区别
+
+只加了本段中文说明与打包（zip 只含技能目录 `skills/ppt-master`，去掉了 `scripts/tests` 测试、网站和示例项目等），代码未改。
+
+---
+
+以下为上游原始说明（原文未改动）：
+
 # PPT Master — AI generates native PowerPoint from any document
 
 [![Version](https://img.shields.io/github/v/release/hugohe3/ppt-master?label=version&color=blue)](https://github.com/hugohe3/ppt-master/releases)
